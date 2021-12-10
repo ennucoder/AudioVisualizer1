@@ -28,7 +28,7 @@ function main(){
     const bar1 =new Bar(10, 10, 100, 200, 'blue');
     function animate(){
         ctx.clearRect(0,0, canvas.width, canvas.height);
-        bar1.update();
+      
         bar1.draw(ctx);
         
         
