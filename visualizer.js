@@ -26,6 +26,11 @@ function main(){
         }
     }
     const bar1 =new Bar(10, 10, 100, 200, 'blue');
+    function createBars(){
+        for(let i = 0; i < 256; i++){
+            
+        }
+    }
     function animate(){
         ctx.clearRect(0,0, canvas.width, canvas.height);
       
