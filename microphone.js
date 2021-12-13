@@ -38,5 +38,3 @@ class Microphone {
     }
 
 }
-const microphone = new Microphone();
-console.log(microphone);
