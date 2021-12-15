@@ -16,21 +16,31 @@ function main(){
     
         }
         update(micInput){
-            this.height = micInput * 1000;
+            const sound = micInput * 1000;
+            if (sound > this.height){
+                this.height = sound;
+
+            }else{
+                this.height -= this.height * 0.03;
+            }
+           
             
             
         }
-        draw(context){
+        draw(context, volume){
             context.strokeStyle =this.color;
             context.save();
 
             context.translate(canvas.width/2, canvas.height/2);
-            context.rotate(this.index);
+            context.rotate(this.index * 0.03);
+            context.scale(1 + volume *0.2,1 + volume *0.2);
     
             context.beginPath();
-            context.moveTo(0, 0);
-            context.lineTo(0, this.height);
+            context.moveTo(this.x, this.y);
+            context.lineTo(this.y, this.height);
             context.stroke();
+
+            context.strokeRect(this.y, this.y, this.height/2, this.height);
             context.restore();
     
         }
@@ -43,25 +53,28 @@ function main(){
     function createBars(){
         for(let i = 0; i < 256; i++){
             let color = 'hsl(' + i * 2 + ', 100%, 50%)';
-            bars.push(new Bar(i * barWidth, canvas.height/2, 1, 20, color,i));
+            bars.push(new Bar(0,i*1.5, 5, 50, color,i));
 
             
         }
     }
     console.log(bars);
     createBars();
-    console.log(bars);
+    let angle = 0;
+    
     function animate(){
         if (microphone.initialized){
             ctx.clearRect(0,0, canvas.width, canvas.height);
 
             const samples = microphone.getSamples();
+
+            const volume = microphone.getVolume();
         
             
          
             bars.forEach(function(bar,i){
                 bar.update(samples[i]);
-                bar.draw(ctx);
+                bar.draw(ctx,volume);
             });
 
         }
